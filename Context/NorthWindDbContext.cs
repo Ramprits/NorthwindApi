@@ -10,6 +10,5 @@ namespace WebApplicationNorthwind.Context
         {
         }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Gender> Genders { get; set; }
     }
 }

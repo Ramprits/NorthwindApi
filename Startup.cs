@@ -32,30 +32,11 @@ namespace WebApplicationNorthwind
         {
             var connectionString = Configuration["connectionStrings:NorthDBConnectionString"];
             services.AddDbContext<NorthWindDbContext>(o => o.UseSqlServer(connectionString));
-            services.AddMvc(opt =>
-            {
-                opt.Filters.Add(new RequireHttpsAttribute());
-            })
-            .AddJsonOptions(opt =>
-            {
-                opt.SerializerSettings.ReferenceLoopHandling =
-                  ReferenceLoopHandling.Ignore;
-            });
+            services.AddMvc(opt => { opt.Filters.Add(new RequireHttpsAttribute()); }).AddJsonOptions(opt => { opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
             services.AddCors(config =>
             {
-                config.AddPolicy("MyApplication", builder =>
-                {
-                    builder.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowAnyMethod();
-                });
-
-                config.AddPolicy("AllowAny", builder =>
-                {
-                    builder.AllowAnyHeader()
-                       .AllowAnyMethod()
-                        .AllowAnyOrigin();
-                });
+                config.AddPolicy("MyApplication", builder => { builder.AllowAnyHeader().AllowAnyMethod().AllowAnyMethod(); });
+                config.AddPolicy("AllowAny", builder => { builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin(); });
             });
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         }
@@ -64,11 +45,11 @@ namespace WebApplicationNorthwind
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            Mapper.Initialize(cfg =>
+            Mapper.Initialize(config =>
             {
-                cfg.CreateMap<Employee, EmployeeVm>().
-                ForMember(x => x.Gender, opt => opt.MapFrom(x => x.GenderGuid))
-                .ReverseMap();
+                config.CreateMap<Employee, EmployeeVm>().ReverseMap();
+                config.CreateMap<CreateEmployee, Employee>().ReverseMap();
+
             });
 
             app.UseMvc();

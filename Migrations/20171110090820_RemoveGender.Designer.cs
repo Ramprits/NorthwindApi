@@ -8,9 +8,10 @@ using WebApplicationNorthwind.Context;
 namespace WebApplicationNorthwind.Migrations
 {
     [DbContext(typeof(NorthWindDbContext))]
-    partial class NorthWindDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171110090820_RemoveGender")]
+    partial class RemoveGender
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

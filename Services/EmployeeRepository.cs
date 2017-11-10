@@ -40,14 +40,14 @@ namespace WebApplicationNorthwind.Services
             throw new NotImplementedException();
         }
 
-        public bool AuthorExists(Guid employeeGuid)
+        public bool EmployeeExists(Guid employeeGuid)
         {
             return _ctx.Employees.Any(x => x.EmployeeGuid == employeeGuid);
         }
 
         public bool Save()
         {
-            return _ctx.SaveChanges() > 0;
+            return (_ctx.SaveChanges() >= 0);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace WebApplicationNorthwind.Services
         void AddEmployee(Employee employee);
         void DeleteAuthor(Employee employee);
         void UpdateAuthor(Employee employee);
-        bool AuthorExists(Guid employeeGuid);
+        bool EmployeeExists(Guid employeeGuid);
         bool Save();
     }
 }
